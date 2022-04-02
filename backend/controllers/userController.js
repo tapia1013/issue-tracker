@@ -70,6 +70,20 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(401)
     throw new Error('Invalid Credentials')
   }
+});
+
+// @desc    Get current User
+// @route   /api/users/me
+// @access  Private
+const getMe = asyncHandler(async (req, res) => {
+  // We dont want _id so we rename it
+  const user = {
+    id: req.user._id,
+    email: req.user.email,
+    name: req.user.name
+  }
+  // get user with new key name 
+  res.status(200).json(user)
 })
 
 // Generate JSONWEBTOKEN
@@ -81,5 +95,6 @@ const generateToken = (id) => {
 
 module.exports = {
   registerUser,
-  loginUser
+  loginUser,
+  getMe
 }

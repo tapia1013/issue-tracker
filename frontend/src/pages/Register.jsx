@@ -4,8 +4,8 @@ import { toast } from 'react-toastify';
 import { FaUser } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { register, reset } from '../features/auth/authSlice';
+import Spinner from '../components/Spinner';
 
-// VIDEO 8
 const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -55,6 +55,10 @@ const Register = () => {
 
       dispatch(register(userData))
     }
+  }
+
+  if (isLoading) {
+    return <Spinner />
   }
 
   return (

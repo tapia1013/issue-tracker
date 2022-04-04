@@ -27,8 +27,7 @@ const Tickets = () => {
     return <Spinner />
   }
 
-  console.log(tickets);
-
+  // console.log(tickets);
   return (
     <>
       <BackButton url='/' />

@@ -7,7 +7,7 @@ const Ticket = require('../models/ticketModel');
 // @route    GET /api/tickets
 // @access   Private
 const getTickets = asyncHandler(async (req, res) => {
-  // Get user using the ID and JWT
+  // Get user using the ID in the JWT
   const user = await User.findById(req.user.id)
 
   if (!user) {
@@ -18,6 +18,36 @@ const getTickets = asyncHandler(async (req, res) => {
   const tickets = await Ticket.find({ user: req.user.id })
 
   res.status(200).json(tickets)
+})
+
+// @desc     Get user ticket
+// @route    GET /api/tickets/:id
+// @access   Private
+const getTicket = asyncHandler(async (req, res) => {
+  // Get user using the ID in the JWT
+  const user = await User.findById(req.user.id)
+
+  if (!user) {
+    res.status(401)
+    throw new Error('User not found!')
+  }
+
+  // Get ticket by its in the PARAMS
+  const ticket = await Ticket.findById(req.params.id)
+
+  // check for the ticket
+  if (!ticket) {
+    res.status(404)
+    throw new Error('Ticket Not Found!')
+  }
+
+  // Limit only to USER to get TICKET
+  if (ticket.user.toString() !== req.user.id) {
+    res.status(401)
+    throw new Error('Not Authorized')
+  }
+
+  res.status(200).json(ticket)
 })
 
 // @desc     Create new tickets
@@ -54,5 +84,7 @@ const createTicket = asyncHandler(async (req, res) => {
 
 module.exports = {
   getTickets,
-  createTicket
+  getTicket,
+  createTicket,
+
 }

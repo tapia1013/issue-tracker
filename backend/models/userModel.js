@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema({
     required: [true, 'Please add a password'],
     unique: true
   },
-  isAdmin: {
+  isStaff: {
     type: Boolean,
     required: true,
     default: false

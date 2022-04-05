@@ -50,6 +50,9 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 })
 
+
+
+
 // @desc    Login a user
 // @route   /api/users/login
 // @access  Public
@@ -72,6 +75,9 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
+
+
+
 // @desc    Get current User
 // @route   /api/users/me
 // @access  Private
@@ -86,12 +92,16 @@ const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(user)
 })
 
+
+
 // Generate JSONWEBTOKEN
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: '90d'
   })
 }
+
+
 
 module.exports = {
   registerUser,

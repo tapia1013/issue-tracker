@@ -56,7 +56,7 @@ export const login = createAsyncThunk(
 
 // Logout user
 export const logout = createAsyncThunk('auth/logout', async () => {
-  await authService.logout
+  await authService.logout()
 })
 
 export const authSlice = createSlice({
@@ -103,7 +103,7 @@ export const authSlice = createSlice({
         state.user = null
       })
       .addCase(logout.fulfilled, (state) => {
-        state.user = null
+        state.user = null;
       })
   }
 })
